@@ -36,25 +36,6 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
   late TextEditingController _mainMeaningController;
   late TextEditingController _mainExampleController;
   late LanguageMode mode;
-  void saveWord() {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    _formKey.currentState!.save();
-    newWord = newWord.copyWith(
-      noun: radioToggleBloc.state.nounToggle,
-      adj: radioToggleBloc.state.adjectiveToggle,
-      adverb: radioToggleBloc.state.adverbToggle,
-      verb: radioToggleBloc.state.verbToggle,
-      phrases: radioToggleBloc.state.phrasesToggle,
-      title: _titleController.text.trim(),
-      secMeaning: definitionBloc.state.secDefs,
-      mainMeaning: definitionBloc.state.mainDefs,
-      mainExample: definitionBloc.state.mainExample,
-    );
-    context.read<WordBloc>().add(AddWordEvent(wordData: newWord));
-    Navigator.pop(context);
-  }
 
   @override
   void initState() {
@@ -120,19 +101,40 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
     definitionBloc.add(RemoveFromMainExEvent(index: index));
   }
 
+  void saveWord() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+    addToMainDef();
+    addToSecDef();
+    addToMainExample();
+    newWord = newWord.copyWith(
+      noun: radioToggleBloc.state.nounToggle,
+      adj: radioToggleBloc.state.adjectiveToggle,
+      adverb: radioToggleBloc.state.adverbToggle,
+      verb: radioToggleBloc.state.verbToggle,
+      phrases: radioToggleBloc.state.phrasesToggle,
+      title: _titleController.text.trim(),
+      secMeaning: definitionBloc.state.secDefs,
+      mainMeaning: definitionBloc.state.mainDefs,
+      mainExample: definitionBloc.state.mainExample,
+    );
+    context.read<WordBloc>().add(AddWordEvent(wordData: newWord));
+    Navigator.pop(context);
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Colors.grey.shade100,
-
-
+      backgroundColor: Colors.grey.shade100,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            fixedSize: Size(200, 40),
+            fixedSize: Size(MediaQuery.sizeOf(context).width * .8, 50),
             backgroundColor: ColorManager.primary,
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
           ),
           onPressed: saveWord,
           child: Text(
@@ -141,15 +143,15 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
           )),
       resizeToAvoidBottomInset: false,
       body: AnnotatedRegion(
-         value: SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
+        value: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
         ),
         child: LayoutBuilder(
           builder: (context, constraints) => SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Form(
                 key: _formKey,
                 child: Padding(
@@ -186,7 +188,7 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-        
+
                       BlocBuilder<RadioToggleBloc, RadioToggleState>(
                         builder: (context, state) {
                           return SizedBox(
@@ -251,16 +253,17 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                           );
                         },
                       ),
-        
+
                       /// Second definition textfield
-        
+
                       customTextFormField(
                         constraints,
-                       getDefText(mode).set(Order.second),
+                        getDefText(mode).set(Order.second),
                         TextDirection.rtl,
                         _secMeaningController,
                         addToSecDef,
                       ),
+
                       /// List of second definition
                       BlocBuilder<DefinitionBloc, DefinitionState>(
                         builder: (context, state) {
@@ -271,14 +274,16 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                               width: constraints.maxWidth,
                               child: state.secDefs.isEmpty
                                   ? Center(
-                                      child: Text(getAddDefText(mode).set(Order.second)),
+                                      child: Text(getAddDefText(mode)
+                                          .set(Order.second)),
                                     )
                                   : Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: ListView.builder(
                                         itemCount: state.secDefs.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) => defItem(
+                                        itemBuilder: (context, index) =>
+                                            defItem(
                                           index,
                                           state.secDefs,
                                           TextDirection.rtl,
@@ -289,7 +294,7 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                           );
                         },
                       ),
-        
+
                       /// Main definition textfield
                       customTextFormField(
                         constraints,
@@ -298,6 +303,7 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                         _mainMeaningController,
                         addToMainDef,
                       ),
+
                       /// List of main Definition
                       BlocBuilder<DefinitionBloc, DefinitionState>(
                         builder: (context, state) {
@@ -307,14 +313,16 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                               height: constraints.maxHeight * 0.06,
                               child: state.mainDefs.isEmpty
                                   ? Center(
-                                      child: Text(getAddDefText(mode).set(Order.main)),
+                                      child: Text(
+                                          getAddDefText(mode).set(Order.main)),
                                     )
                                   : Directionality(
                                       textDirection: TextDirection.ltr,
                                       child: ListView.builder(
                                         itemCount: state.mainDefs.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) => defItem(
+                                        itemBuilder: (context, index) =>
+                                            defItem(
                                           index,
                                           state.mainDefs,
                                           TextDirection.ltr,
@@ -325,7 +333,7 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                           );
                         },
                       ),
-        
+
                       /// Main example textfield
                       customTextFormField(
                         constraints,
@@ -334,7 +342,7 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                         _mainExampleController,
                         addToMainExample,
                       ),
-        
+
                       /// List of main example
                       BlocBuilder<DefinitionBloc, DefinitionState>(
                         builder: (context, state) {
@@ -353,7 +361,8 @@ class _AddScreenState extends State<AddScreen> with TickerProviderStateMixin {
                                       child: ListView.builder(
                                         itemCount: state.mainExample.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) => defItem(
+                                        itemBuilder: (context, index) =>
+                                            defItem(
                                           index,
                                           state.mainExample,
                                           TextDirection.ltr,

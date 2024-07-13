@@ -103,14 +103,12 @@ class _WordListWidgetState extends State<WordListWidget> {
                 child: Lottie.asset(JsonAssets.empty),
               )
             : ListView.builder(
-
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
                 itemCount: words.length,
                 itemBuilder: (context, index) => ItemWidget(
                   key: UniqueKey(),
                   index: index,
-                  
                 ),
               ),
       ),
@@ -135,7 +133,8 @@ class _ItemWidgetState extends State<ItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final words = context.watch<FilteredWordsBloc>().state.wordList.reversed.toList();
+    final words =
+        context.watch<FilteredWordsBloc>().state.wordList.reversed.toList();
     mode = context.read<WordBloc>().state.mode;
     List<String> list = numberOfType(words[widget.index]);
     return InkWell(
@@ -146,18 +145,29 @@ class _ItemWidgetState extends State<ItemWidget> {
       },
       borderRadius: BorderRadius.circular(25),
       radius: 25,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.ease,
         key: widget.key,
         padding: EdgeInsets.zero,
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-        height:
-           context.watch<ManageExtendingCubit>().state.isExtendedMap[widget.key] ?? false ? 150 : 70,
+        height: context
+                    .watch<ManageExtendingCubit>()
+                    .state
+                    .isExtendedMap[widget.key] ??
+                false
+            ? 150
+            : 70,
         width: double.infinity,
         decoration: BoxDecoration(
             border: Border.all(color: ColorManager.white, width: 1),
             borderRadius: BorderRadius.circular(15),
             color: ColorManager.white),
-        child: context.watch<ManageExtendingCubit>().state.isExtendedMap[widget.key]?? false
+        child: context
+                    .watch<ManageExtendingCubit>()
+                    .state
+                    .isExtendedMap[widget.key] ??
+                false
             ? Column(
                 children: [
                   Flexible(
@@ -187,12 +197,10 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 : ListView.builder(
                                     physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) => defItem(
-                                        words[widget.index]
-                                            .mainMeaning[index],
+                                        words[widget.index].mainMeaning[index],
                                         TextDirection.ltr),
-                                    itemCount: words[widget.index]
-                                        .mainMeaning
-                                        .length,
+                                    itemCount:
+                                        words[widget.index].mainMeaning.length,
                                   ),
                           ),
                           Expanded(
@@ -208,14 +216,11 @@ class _ItemWidgetState extends State<ItemWidget> {
                                   ? emptyContent(getEmptyDefText(mode)[1])
                                   : ListView.builder(
                                       physics: const BouncingScrollPhysics(),
-                                      itemBuilder: (context, index) =>
-                                          defItem(
-                                              words[widget.index]
-                                                  .secMeaning[index],
-                                              TextDirection.rtl),
-                                      itemCount: words[widget.index]
-                                          .secMeaning
-                                          .length,
+                                      itemBuilder: (context, index) => defItem(
+                                          words[widget.index].secMeaning[index],
+                                          TextDirection.rtl),
+                                      itemCount:
+                                          words[widget.index].secMeaning.length,
                                     )),
                         ],
                       ),
@@ -223,8 +228,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                   ),
                 ],
               )
-            : listTileWidget(
-                list, words[widget.index], Icons.arrow_drop_down),
+            : listTileWidget(list, words[widget.index], Icons.arrow_drop_down),
       ),
     );
   }

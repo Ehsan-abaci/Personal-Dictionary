@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,11 +9,9 @@ import 'package:your_dictionary/src/bloc/word/word_bloc.dart';
 import 'package:your_dictionary/src/bloc/word_filter/word_filter_bloc.dart';
 import 'package:your_dictionary/src/common/di.dart';
 import 'package:your_dictionary/src/data/data_source/local_data_source.dart';
-import 'package:your_dictionary/src/domain/models/word.dart';
 import 'src/bloc/filtered_words/filtered_words_bloc.dart';
 import 'src/bloc/manage_extending/manage_extending_cubit.dart';
 import 'src/bloc/search_word/search_word_cubit.dart';
-import 'src/constant/constant_key.dart';
 import 'src/constant/functions.dart';
 import 'src/presentation/resources/routes_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +20,7 @@ void main() async {
   await dotenv.load(fileName: "assets/.env");
   await Hive.initFlutter();
   await initAppModule();
-  Hive.registerAdapter<Word>(WordAdapter());
-  await Hive.openBox<Word>(EN_FA_BOX);
-  await Hive.openBox<Word>(DE_FA_BOX);
-  await Hive.openBox<Word>(DE_EN_BOX);
+
   runApp(const MyApp());
 }
 

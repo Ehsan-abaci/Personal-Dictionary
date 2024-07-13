@@ -38,8 +38,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 return iconButtonBar(
                icon: IconAssets.selectedHome,
                   color: state.typeOfLimit == Limit.all
-                      ? Colors.blue.shade300
-                      : Colors.black,
+                   ? Colors.black
+                      : Colors.grey,
                   function: () {
                     context.read<MarkWordCubit>().setAllWordsEvent();
                   },
@@ -51,8 +51,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 return iconButtonBar(
                   icon: IconAssets.selectedBookmark,
                   color: state.typeOfLimit == Limit.marked
-                      ? Colors.blue.shade300
-                      : Colors.black,
+                      ? Colors.black
+                      : Colors.grey,
                   function: () {
                     context.read<MarkWordCubit>().setMarkedWordsEvent();
                   },

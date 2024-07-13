@@ -41,8 +41,6 @@ class FileManager {
     message = "The process has encountered an error";
     showNotification(message);
   }
-
- 
 }
 
 class FileStorageManager {

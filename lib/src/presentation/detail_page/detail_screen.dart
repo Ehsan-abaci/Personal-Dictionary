@@ -166,7 +166,6 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         child: LayoutBuilder(
           builder: (context, constraints) {
-            print(wordData.secMeaning);
             return Padding(
               padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
               child: ListView(
@@ -308,7 +307,8 @@ class _DetailScreenState extends State<DetailScreen> {
       width: constraints.maxWidth * .9,
       height: 55,
       child: Center(
-        child: ListView(shrinkWrap: true,
+        child: ListView(
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           children: [
             customIconButton(
@@ -374,7 +374,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: ColorManager.white,
-                        minimumSize: Size(double.infinity, 40),
+                        minimumSize: const Size(double.infinity, 40),
                         backgroundColor: ColorManager.primary,
                       ),
                       onPressed: () => Navigator.of(ctx).pop(true),
@@ -388,7 +388,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: ColorManager.primary,
-                        minimumSize: Size(double.infinity, 40),
+                        minimumSize: const Size(double.infinity, 40),
                         backgroundColor: ColorManager.white,
                         side: BorderSide(
                           color: ColorManager.primary,
@@ -412,7 +412,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Widget customIconButton(Function function, IconData icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: () => function(),
