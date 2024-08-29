@@ -165,26 +165,23 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            fixedSize: Size(MediaQuery.sizeOf(context).width * .8, 50),
-            backgroundColor: ColorManager.primary,
-            shape: const StadiumBorder(),
-          ),
-          onPressed: saveWord,
-          child: Text(
-            AppStrings.save,
-            style: TextStyle(fontSize: 17, color: ColorManager.white),
-          )),
-      resizeToAvoidBottomInset: false,
-      body: AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-        ),
-        child: LayoutBuilder(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(MediaQuery.sizeOf(context).width * .8, 50),
+              backgroundColor: ColorManager.primary,
+              shape: const StadiumBorder(),
+            ),
+            onPressed: saveWord,
+            child: Text(
+              AppStrings.save,
+              style: TextStyle(fontSize: 17, color: ColorManager.white),
+            )),
+        resizeToAvoidBottomInset: false,
+        body: LayoutBuilder(
           builder: (context, constraints) => SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
@@ -199,9 +196,7 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: constraints.maxHeight * 0.06,
-                      ),
+                      SizedBox(height: constraints.maxHeight * 0.04),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: constraints.maxWidth * 0.1),
