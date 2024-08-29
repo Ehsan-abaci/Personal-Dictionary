@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
        ElevatedButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, Routes.addWordRoute);
+          Navigator.pushNamed(context, Routes.addEditWordRoute);
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,

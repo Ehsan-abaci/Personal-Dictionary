@@ -320,7 +320,7 @@ class _DetailScreenState extends State<DetailScreen> {
               Icons.volume_up,
             ),
             customIconButton(() {
-              Navigator.pushNamed(context, Routes.editWordRoute, arguments: id);
+              Navigator.pushNamed(context, Routes.addEditWordRoute, arguments: id);
             }, Icons.mode_edit_rounded),
             customIconButton(() {
               context.read<WordBloc>().add(AddToMarkedWordsEvent(id: id));
