@@ -13,10 +13,9 @@ import '../network/failure.dart';
 class RepositoryImpl implements Repository {
   final NetworkInfo _networkInfo;
   final RemoteDataSource _remoteDataSource;
-  final LocalDataSource _localDataSource;
 
   RepositoryImpl(
-      this._networkInfo, this._remoteDataSource, this._localDataSource);
+      this._networkInfo, this._remoteDataSource);
   @override
   Future<Either<Failure, Uint8List>> textToSpeech(
       TextToSpeechRequest textToSpeechRequest) async {

@@ -34,7 +34,7 @@ Future<void> initAppModule() async {
       () => NetworkInfoImpl(InternetConnectionChecker()));
 
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), instance(), instance()));
+      () => RepositoryImpl(instance(), instance()));
 
   // hive boxes & adapters
   Hive.registerAdapter<Word>(WordAdapter());
