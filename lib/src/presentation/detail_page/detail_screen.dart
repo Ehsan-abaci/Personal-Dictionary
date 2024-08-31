@@ -131,7 +131,7 @@ class _DetailScreenState extends State<DetailScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: ColorManager.white,
-              fontSize: 30,
+              fontSize: 35,
               fontWeight: FontWeight.w600,
               letterSpacing: 1,
             ),
@@ -195,9 +195,10 @@ class _DetailScreenState extends State<DetailScreen> {
     return Text(
       text,
       style: TextStyle(
-          color: ColorManager.primary,
-          fontSize: 15,
-          fontWeight: FontWeight.w600),
+        color: ColorManager.primary,
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      ),
     );
   }
 
@@ -243,13 +244,13 @@ class _DetailScreenState extends State<DetailScreen> {
                             text: definitions[index],
                             style: TextStyle(
                               color: Colors.grey.shade700,
-                              fontSize: 15,
                             ),
                           )
                         ],
                         style: TextStyle(
                           color: ColorManager.primary,
-                          fontSize: 15,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600
                         ),
                       ),
                     ),
@@ -283,14 +284,14 @@ class _DetailScreenState extends State<DetailScreen> {
                         text: "${index + 1}. ",
                         style: TextStyle(
                           color: ColorManager.primary,
-                          fontSize: 15,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600
                         ),
                         children: [
                           TextSpan(
                             text: examples[index],
                             style: TextStyle(
                               color: Colors.grey.shade700,
-                              fontSize: 15,
                             ),
                           )
                         ]),
@@ -320,7 +321,8 @@ class _DetailScreenState extends State<DetailScreen> {
               Icons.volume_up,
             ),
             customIconButton(() {
-              Navigator.pushNamed(context, Routes.addEditWordRoute, arguments: id);
+              Navigator.pushNamed(context, Routes.addEditWordRoute,
+                  arguments: id);
             }, Icons.mode_edit_rounded),
             customIconButton(() {
               context.read<WordBloc>().add(AddToMarkedWordsEvent(id: id));

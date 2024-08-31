@@ -52,10 +52,16 @@ class _WordFilterWidgetState extends State<WordFilterWidget> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.grey,
                         ))),
-                child: Text(_filters[index]),
+                child: Text(
+                  _filters[index],
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
               ),
             ),
           )),
@@ -67,7 +73,7 @@ class _WordFilterWidgetState extends State<WordFilterWidget> {
       case 0:
         context
             .read<ChangeFilterColorCubit>()
-            .setFilterColor(filterIndex: 0, color:  ColorManager.filterColor);
+            .setFilterColor(filterIndex: 0, color: ColorManager.filterColor);
         break;
       case 1:
         context
@@ -82,12 +88,12 @@ class _WordFilterWidgetState extends State<WordFilterWidget> {
       case 3:
         context
             .read<ChangeFilterColorCubit>()
-            .setFilterColor(filterIndex: 3, color:  ColorManager.filterColor);
+            .setFilterColor(filterIndex: 3, color: ColorManager.filterColor);
         break;
       case 4:
         context
             .read<ChangeFilterColorCubit>()
-            .setFilterColor(filterIndex: 4, color:  ColorManager.filterColor);
+            .setFilterColor(filterIndex: 4, color: ColorManager.filterColor);
         break;
     }
   }

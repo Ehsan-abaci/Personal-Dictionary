@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: TextStyle(
                           color: ColorManager.primary,
                           fontSize: 40,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),

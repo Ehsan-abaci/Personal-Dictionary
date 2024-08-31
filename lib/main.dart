@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -81,7 +83,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData(useMaterial3: true),
+        theme: ThemeData(useMaterial3: true, fontFamily: "OpenSans"),
         themeMode: ThemeMode.light,
         title: 'Your Dictionary',
         debugShowCheckedModeBanner: false,

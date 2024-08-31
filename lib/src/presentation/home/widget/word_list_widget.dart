@@ -16,7 +16,7 @@ import '../../../bloc/manage_extending/manage_extending_cubit.dart';
 import '../../../domain/models/word.dart';
 
 class WordListWidget extends StatefulWidget {
-  WordListWidget({Key? key, required this.constraints}) : super(key: key);
+  const WordListWidget({Key? key, required this.constraints}) : super(key: key);
   final BoxConstraints constraints;
   @override
   State<WordListWidget> createState() => _WordListWidgetState();
@@ -118,11 +118,10 @@ class _WordListWidgetState extends State<WordListWidget> {
 
 class ItemWidget extends StatefulWidget {
   const ItemWidget({
-    required this.key,
+    Key? key,
     required this.index,
   }) : super(key: key);
   final int index;
-  final Key key;
 
   @override
   State<ItemWidget> createState() => _ItemWidgetState();
@@ -137,14 +136,12 @@ class _ItemWidgetState extends State<ItemWidget> {
         context.watch<FilteredWordsBloc>().state.wordList.reversed.toList();
     mode = context.read<WordBloc>().state.mode;
     List<String> list = numberOfType(words[widget.index]);
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
         Navigator.pushNamed(context, Routes.wordDetailRoute,
             arguments: words[widget.index].id);
       },
-      borderRadius: BorderRadius.circular(25),
-      radius: 25,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
@@ -160,9 +157,16 @@ class _ItemWidgetState extends State<ItemWidget> {
             : 70,
         width: double.infinity,
         decoration: BoxDecoration(
-            border: Border.all(color: ColorManager.white, width: 1),
-            borderRadius: BorderRadius.circular(15),
-            color: ColorManager.white),
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.primary.withOpacity(0.3),
+              blurRadius: 5,
+              offset: const Offset(0, 1.5),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(15),
+          color: ColorManager.white,
+        ),
         child: context
                     .watch<ManageExtendingCubit>()
                     .state
@@ -283,7 +287,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                 IconButton(
                   icon: Icon(icon),
                   onPressed: () {
-                    context.read<ManageExtendingCubit>().switching(widget.key);
+                    context.read<ManageExtendingCubit>().switching(
+                          widget.key!,
+                        );
                   },
                 )
               ],

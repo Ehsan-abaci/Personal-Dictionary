@@ -178,7 +178,11 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
             onPressed: saveWord,
             child: Text(
               AppStrings.save,
-              style: TextStyle(fontSize: 17, color: ColorManager.white),
+              style: TextStyle(
+                fontSize: 20,
+                color: ColorManager.white,
+                fontWeight: FontWeight.w700,
+              ),
             )),
         resizeToAvoidBottomInset: false,
         body: LayoutBuilder(
