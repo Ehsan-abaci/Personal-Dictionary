@@ -16,7 +16,7 @@ This is a personal dictionary to keep your words to review them everywhere you w
 
 ● Mark important words to remember.
 
-
+● Scan a text and specify the words to add to your dictionary without adding one by one.
 ## Demo
 
 <img src="https://github.com/user-attachments/assets/0ceaf2c4-78f8-4b4c-88a4-90e313f3b2b8" width="250"/>
