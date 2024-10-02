@@ -1,5 +1,4 @@
-import 'dart:math';
-import 'dart:ui';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -133,7 +132,7 @@ class CustomNavbar extends CustomPainter {
       ..strokeCap = StrokeCap.round
       // ..imageFilter =
       //     ImageFilter.blur(sigmaX: 2, sigmaY: 2, tileMode: TileMode.decal)
-      ..color = Color.fromARGB(255, 255, 255, 255);
+      ..color = const Color.fromARGB(255, 255, 255, 255);
     canvas.drawPath(p, navPaint);
   }
 

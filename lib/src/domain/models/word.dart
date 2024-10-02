@@ -46,9 +46,9 @@ class Word {
   Word({
     String? id,
     required this.title,
-    required this.secMeaning,
-    required this.mainMeaning,
-    required this.mainExample,
+    this.secMeaning = const [],
+    this.mainMeaning = const [],
+    this.mainExample = const [],
     this.noun = false,
     this.adj = false,
     this.verb = false,
@@ -61,9 +61,15 @@ class Word {
     return Word(
       id: json["id"],
       title: json["title"],
-       secMeaning: (json["secMeaning"] as List<dynamic>).map((e) => e.toString()).toList(),
-    mainMeaning: (json["mainMeaning"] as List<dynamic>).map((e) => e.toString()).toList(),
-    mainExample: (json["mainExample"] as List<dynamic>).map((e) => e.toString()).toList(),
+      secMeaning: (json["secMeaning"] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
+      mainMeaning: (json["mainMeaning"] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
+      mainExample: (json["mainExample"] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
       noun: json["noun"],
       adj: json["adj"],
       adverb: json["adverb"],

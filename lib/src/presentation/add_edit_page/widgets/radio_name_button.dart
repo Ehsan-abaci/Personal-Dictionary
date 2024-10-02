@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:your_dictionary/src/presentation/resources/color_manager.dart';
 
 class RadioNameButton extends StatelessWidget {
-  RadioNameButton(
+  const RadioNameButton(
       {super.key,
       required this.name,
       required this.function,
@@ -16,7 +16,7 @@ class RadioNameButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Radio(
-          fillColor: MaterialStatePropertyAll(ColorManager.primary),
+          fillColor: WidgetStatePropertyAll(ColorManager.primary),
           value: val,
           groupValue: true,
           onChanged: function,

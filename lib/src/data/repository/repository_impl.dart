@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
-import 'package:your_dictionary/src/data/data_source/local_data_source.dart';
 import 'package:your_dictionary/src/data/data_source/remote_data_source.dart';
 import 'package:your_dictionary/src/data/network/network_info.dart';
 import 'package:your_dictionary/src/data/request/request.dart';

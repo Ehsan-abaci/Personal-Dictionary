@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:your_dictionary/src/constant/functions.dart';
 import 'package:your_dictionary/src/data/data_source/local_data_source.dart';
+import '../../constant/constant_key.dart';
 import '../../domain/models/word.dart';
 
 part 'word_event.dart';
@@ -14,10 +15,11 @@ class WordBloc extends Bloc<WordEvent, WordState> {
   LanguageMode mode;
   final LocalDataSource _localDataSource;
 
-    Word fetchWordByIdEvent(String id) {
-      var box = getStringLanguageMode(state.mode);
-      return _localDataSource.fetchWordById(box, id);
-    }
+  Word fetchWordByIdEvent(String id) {
+    var box = state.mode.box;
+    return _localDataSource.fetchWordById(box, id);
+  }
+
   WordBloc(this._localDataSource, {required this.mode})
       : super(WordState.initial(mode)) {
     on<ChangeLanguageModeEvent>((event, emit) async {
@@ -26,32 +28,24 @@ class WordBloc extends Bloc<WordEvent, WordState> {
       add(FetchWordsEvent());
     });
     on<AddWordEvent>((event, emit) async {
-      var box = getStringLanguageMode(state.mode);
-      Word wordData = Word(
-        title: event.wordData.title,
-        secMeaning: event.wordData.secMeaning,
-        mainMeaning: event.wordData.mainMeaning,
-        mainExample: event.wordData.mainExample,
-        noun: event.wordData.noun,
-        verb: event.wordData.verb,
-        adj: event.wordData.adj,
-        adverb: event.wordData.adverb,
-        phrases: event.wordData.phrases,
-        isMarked: event.wordData.isMarked,
-      );
-      _localDataSource.addToWordBox(box, wordData);
-      emit(state.copyWith(wordList: state.wordList..add(wordData)));
+      var box = state.mode.box;
+      final Word word = event.wordData;
+      _localDataSource.addToWordBox(box, word);
+      emit(state.copyWith(wordList: state.wordList..add(word)));
+    });
+    on<AddMultiWordsEvent>((event, emit) {
+      for (final word in event.wordsData) {
+        add(AddWordEvent(wordData: word));
+      }
     });
     on<FetchWordsEvent>((event, emit) {
-      var box = getStringLanguageMode(state.mode);
+      var box = state.mode.box;
       List<Word> fetchData = _localDataSource.fetchWords(box);
       emit(state.copyWith(wordList: fetchData));
     });
 
-  
-
     on<RemoveWordEvent>((event, emit) {
-      var box = getStringLanguageMode(state.mode);
+      var box = state.mode.box;
       int index = state.wordList.indexWhere((word) => word.id == event.id);
       _localDataSource.removeWord(box, index);
       List<Word> word = state.wordList
@@ -60,7 +54,7 @@ class WordBloc extends Bloc<WordEvent, WordState> {
     });
 
     on<UpdateWordEvent>((event, emit) async {
-      var box = getStringLanguageMode(state.mode);
+      var box = state.mode.box;
       int index = state.wordList.indexWhere((word) => word.id == event.id);
       state.wordList.removeAt(index);
       state.wordList.insert(index, event.updatedWord);
@@ -68,13 +62,13 @@ class WordBloc extends Bloc<WordEvent, WordState> {
       await _localDataSource.updateWord(box, index, event.updatedWord);
     });
     on<AddToMarkedWordsEvent>((event, emit) async {
-      var box = getStringLanguageMode(state.mode);
+      var box = state.mode.box;
       int index = state.wordList.indexWhere((word) => word.id == event.id);
       Word updatedWord = state.wordList.firstWhere((e) => e.id == event.id);
       updatedWord.isMarked = !updatedWord.isMarked;
       state.wordList.removeAt(index);
       state.wordList.insert(index, updatedWord);
-    await _localDataSource.updateWord(box, index, updatedWord);
+      await _localDataSource.updateWord(box, index, updatedWord);
       emit(state.copyWith(wordList: state.wordList));
     });
     on<ExportDataEvent>((event, emit) {

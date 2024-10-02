@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:your_dictionary/src/constant/constant_key.dart';
 import 'package:your_dictionary/src/domain/models/word.dart';
 import 'package:your_dictionary/src/presentation/resources/strings_manager.dart';
 import '../bloc/word/word_bloc.dart';
@@ -15,29 +14,6 @@ List<String> numberOfType(Word val) {
   return list;
 }
 
-String getStringLanguageMode(LanguageMode mode) {
-  switch (mode) {
-    case LanguageMode.En_Fa:
-      return EN_FA_BOX;
-    case LanguageMode.De_En:
-      return DE_EN_BOX;
-    case LanguageMode.De_Fa:
-      return DE_FA_BOX;
-  }
-}
-
-LanguageMode getLanguageMode(String mode) {
-  switch (mode) {
-    case "En_Fa":
-      return LanguageMode.En_Fa;
-    case "De_En":
-      return LanguageMode.De_En;
-    case "De_Fa":
-      return LanguageMode.De_Fa;
-    default:
-      return LanguageMode.En_Fa;
-  }
-}
 
 enum Order {
   main,

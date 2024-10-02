@@ -1,7 +1,5 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_dictionary/src/bloc/radio_toggle/radio_toggle_bloc.dart';
 import 'package:your_dictionary/src/bloc/word/word_bloc.dart';
@@ -16,7 +14,7 @@ import '../../bloc/validate/validate_cubit.dart';
 import '../../common/widgets.dart';
 
 class AddAndEditScreen extends StatefulWidget {
-  AddAndEditScreen({super.key});
+  const AddAndEditScreen({super.key});
 
   @override
   State<AddAndEditScreen> createState() => _AddAndEditScreenState();
@@ -233,7 +231,7 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
                                 ? constraints.maxHeight * 0.18
                                 : constraints.maxHeight * 0.14,
                             child: GridView(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount:
@@ -319,12 +317,11 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
                                       child: ListView.builder(
                                         itemCount: state.secDefs.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
+                                        itemBuilder: (context, i) =>
                                             defItem(
-                                          index,
-                                          state.secDefs,
+                                          state.secDefs[i],
                                           TextDirection.rtl,
-                                          () => removeFromSecDef(index),
+                                          () => removeFromSecDef(i),
                                         ),
                                       )),
                             ),
@@ -358,12 +355,10 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
                                       child: ListView.builder(
                                         itemCount: state.mainDefs.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
-                                            defItem(
-                                          index,
-                                          state.mainDefs,
+                                        itemBuilder: (context, i) => defItem(
+                                          state.mainDefs[i],
                                           TextDirection.ltr,
-                                          () => removeFromMainDef(index),
+                                          () => removeFromMainDef(i),
                                         ),
                                       )),
                             ),
@@ -398,12 +393,11 @@ class _AddAndEditScreenState extends State<AddAndEditScreen>
                                       child: ListView.builder(
                                         itemCount: state.mainExample.length,
                                         scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
+                                        itemBuilder: (context, i) =>
                                             defItem(
-                                          index,
-                                          state.mainExample,
+                                          state.mainExample[i],
                                           TextDirection.ltr,
-                                          () => removeFromMainExample(index),
+                                          () => removeFromMainExample(i),
                                         ),
                                       )),
                             ),

@@ -8,7 +8,7 @@ import 'package:your_dictionary/src/presentation/resources/strings_manager.dart'
 import '../../resources/color_manager.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  SearchBarWidget({Key? key, required this.constraints}) : super(key: key);
+  const SearchBarWidget({Key? key, required this.constraints}) : super(key: key);
   final BoxConstraints constraints;
 
   @override

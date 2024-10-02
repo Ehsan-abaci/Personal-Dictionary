@@ -10,7 +10,7 @@ Widget listTileItem(BoxConstraints constraints, String title, VoidCallback func,
         : constraints.maxHeight * 0.07,
     width: constraints.maxWidth,
     child: InkWell(
-      overlayColor: MaterialStatePropertyAll(ColorManager.white),
+      overlayColor: WidgetStatePropertyAll(ColorManager.white),
       onTap: func,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +46,7 @@ Widget languageModeItem(BoxConstraints constraints, String title,
         : constraints.maxHeight * 0.09,
     width: constraints.maxWidth,
     child: InkWell(
-      overlayColor: MaterialStatePropertyAll(ColorManager.white),
+      overlayColor: WidgetStatePropertyAll(ColorManager.white),
       onTap: func,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

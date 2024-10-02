@@ -57,7 +57,7 @@ class _WordFilterWidgetState extends State<WordFilterWidget> {
                         ))),
                 child: Text(
                   _filters[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600
                   ),

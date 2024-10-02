@@ -13,7 +13,7 @@ import '../resources/strings_manager.dart';
 import 'widgets/list_tile_item.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({super.key});
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -63,87 +63,89 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SizedBox(
-              height: constraints.maxHeight,
-              width: constraints.maxWidth,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: constraints.maxHeight * 0.15,
-                    child: AppBar(
-                      backgroundColor: ColorManager.white,
-                      elevation: 0,
-                      leading: IconButton(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorManager.white,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return SizedBox(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: constraints.maxHeight * 0.15,
+                      child: AppBar(
+                        backgroundColor: ColorManager.white,
+                        elevation: 0,
+                        leading: IconButton(
+                          padding: EdgeInsets.zero,
+                          splashRadius: 25,
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(
+                            color: ColorManager.primary,
+                            Icons.arrow_back_ios_new_rounded,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight * .15,
+                      width: constraints.maxWidth,
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          AppStrings.settings,
+                          style: TextStyle(
+                            color: ColorManager.primary,
+                            fontSize: 40,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight * 0.7,
+                      width: constraints.maxWidth,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.zero,
-                        splashRadius: 25,
-                        onPressed: () => Navigator.pop(context),
-                        icon: Icon(
-                          color: ColorManager.primary,
-                          Icons.arrow_back_ios_new_rounded,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: constraints.maxHeight * .15,
-                    width: constraints.maxWidth,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        AppStrings.settings,
-                        style: TextStyle(
-                          color: ColorManager.primary,
-                          fontSize: 40,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: constraints.maxHeight * 0.7,
-                    width: constraints.maxWidth,
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      children: [
-                        languageModeItem(
-                          constraints,
-                          AppStrings.languageMode,
-                          () {},
-                          const LanguageModeWidget(),
-                        ),
-                        // customDivider(),
-                        listTileItem(
+                        children: [
+                          languageModeItem(
                             constraints,
-                            // Item title
-                            AppStrings.exportWords,
-                            // export file function
-                            exportFile,
-                             SvgPicture.asset(IconAssets.export),
-                        ),
-                        listTileItem(
-                            constraints,
-                            AppStrings.importWords,
-                           importFile,
-                            SvgPicture.asset(IconAssets.import),
-                        ),
-                        customDivider(),
+                            AppStrings.languageMode,
+                            () {},
+                            const LanguageModeWidget(),
+                          ),
+                          // customDivider(),
                           listTileItem(
-                            constraints,
-                            AppStrings.contactUs,
-                           contactUs,
-                            SvgPicture.asset(IconAssets.contactUs),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ));
-        },
+                              constraints,
+                              // Item title
+                              AppStrings.exportWords,
+                              // export file function
+                              exportFile,
+                               SvgPicture.asset(IconAssets.export),
+                          ),
+                          listTileItem(
+                              constraints,
+                              AppStrings.importWords,
+                             importFile,
+                              SvgPicture.asset(IconAssets.import),
+                          ),
+                          customDivider(),
+                            listTileItem(
+                              constraints,
+                              AppStrings.contactUs,
+                             contactUs,
+                              SvgPicture.asset(IconAssets.contactUs),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ));
+          },
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:your_dictionary/src/data/repository/repository_impl.dart';
 import 'package:your_dictionary/src/domain/models/word.dart';
 import 'package:your_dictionary/src/domain/repository/repository.dart';
 
+import '../bloc/word/word_bloc.dart';
 import '../constant/constant_key.dart';
 import '../data/network/network_info.dart';
 
@@ -41,4 +42,17 @@ Future<void> initAppModule() async {
   await Hive.openBox<Word>(EN_FA_BOX);
   await Hive.openBox<Word>(DE_FA_BOX);
   await Hive.openBox<Word>(DE_EN_BOX);
+
+  String? mode;
+  if (sharedPrefs.containsKey(LANGUAGE_MODE_KEY)) {
+    mode = await instance<LocalDataSource>().getPrefLanguageMode();
+  }
+
+  // bloc and cubits
+  instance.registerLazySingleton(
+    () => WordBloc(
+      mode: LanguageMode.get(mode ?? ''),
+      instance(),
+    ),
+  );
 }
